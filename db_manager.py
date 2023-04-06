@@ -5,72 +5,153 @@ import shutil
 import time
 from oauth2client.service_account import ServiceAccountCredentials
 from multiprocessing import Lock
+import re
+import requests
+from config import MAPS_API_KEY
+from trip_manager import get_coordinates_from_address
+
+# TODO: change the code to work with a real db
+
+
+def get_credentials():
+    scope = [
+        "https://spreadsheets.google.com/feeds",
+        "https://www.googleapis.com/auth/drive",
+    ]
+
+    creds = ServiceAccountCredentials.from_json_keyfile_name(
+        "G:/My Drive/Google API/maidiz-main-379913-7c71420f4945.json", scope
+    )
+    return creds
+
+
+def get_google_sheet():
+    creds = get_credentials()
+    client = gspread.authorize(creds)
+    sheet = client.open("CibusCustomers").sheet1
+    return sheet
+
+
+def load_customers_from_sheet():
+    sheet = get_google_sheet()
+    rows = sheet.get_all_records()
+    customers = {}
+    for row in rows:
+        phone_number = str(0) + str(row["number"])
+        customers[phone_number] = {
+            "name": row["name"],
+            "company": row["company"],
+            "address": row["address"],
+        }
+    return customers
+
 
 def write_with_delay(sheet, func, *args, delay=1):
     time.sleep(delay)
     return func(*args)
 
-def update_db_function():
-    print('Running update_db_function')
 
-    lock = Lock()
-    # Use creds to create a client to interact with the Google Drive API
-    scope = ['https://spreadsheets.google.com/feeds',
-             'https://www.googleapis.com/auth/drive']
-
+def get_sheet():
+    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name('G:/My Drive/Google API/maidiz-main-379913-7c71420f4945.json', scope)
     client = gspread.authorize(creds)
-
-    # Find a workbook by name and open the first sheet
     sheet = client.open("CibusCustomers").sheet1
+    return sheet
 
-    # Extract and print all of the values
-    list_of_hashes = sheet.get_all_records()
 
-    # Create a dictionary from the rows in the sheet, where the keys are the customer numbers
-    customers_dict = {}
-    for row in list_of_hashes:
-        customers_dict[str(0)+str(row['number'])] = [row['name'], row['company'], row['address']]
+def clean_address(address):
+    # TODO: fix this to wirk with this "רח׳ אורה 5, רמת גן, ישראל קומה 7 דירה 20 , רמת גן"
+    # Regular expression pattern to find relevant address parts
+    pattern = re.compile(r"([\w\d\s'-]+(?:\s[\w\d'-]+)?)(?:\s\d+)(?:\s[\w\d\s'-]+)")
 
-    # Input the path for Cibus files
-    file_path = 'G:/My Drive/Cibus_Bons_Converted'
-    checked_path = 'G:/My Drive/Cibus_Bons_Converted_Checked'
+    # Search for a match in the input string
+    match = pattern.search(address)
 
-    while True:
-        # Define variables
-        text_files = [f for f in os.listdir(file_path) if f.endswith(f'.txt')]
+    # If a match is found, return the cleaned address, else return the original string
+    if match:
+        return match.group().strip()
+    else:
+        return address
 
-        for file in text_files:
-            txt_file_path = f'{file_path}/{file}'
-            print(f"Processing file: {txt_file_path}")
-            with open(txt_file_path, encoding='utf-8') as f:
-                content = f.read()
-                number = re.search(r"(\d{8}\d?\d?)", content).group(1)
-                company = re.search(r"\d\n([\w\s]+[\w\.]+?) :חברה", content).group(1)
-                address = re.search(r" :חברה\n(.*)\n", content).group(1)
-                name = re.search(r'0(5\d\d{7}) (.*)\n(\d{8}\d?\d?)', content).group(2)
 
-                with lock:
-                    if number not in customers_dict:
-                        # Add new customer to dictionary
-                        customers_dict[str(number)] = [name, company, address]
-                        print(f"Adding new customer to the database: {name}, {number}, {company}, {address}")
-                        # Add new customer to Google Sheet
-                        write_with_delay(sheet, sheet.append_row, [name, number, company, address])
-                    else:
-                        # Update customer details in dictionary
-                        customers_dict[str(number)] = [name, company, address]
-                        print(f"Updating customer details in the database: {name}, {number}, {company}, {address}")
-                        # Update customer details in Google Sheet
-                        cell = sheet.find(number)
-                        write_with_delay(sheet, sheet.update_cell, cell.row, 1, name)
-                        write_with_delay(sheet, sheet.update_cell, cell.row, 3, company)
-                        write_with_delay(sheet, sheet.update_cell, cell.row, 4, address)
+def update_customer_details(order_data, customers_dict, api_key=MAPS_API_KEY):
+    number = order_data['customer_phone']
+    name = order_data['customer_name']
+    company = order_data['company_name']
+    dirty_address = order_data['customer_address']
+    # TODO: add these back after debugging
+    # clean_addr = clean_address(dirty_address)
+    # coordinates = get_coordinates(api_key, clean_addr)
 
-            # Move the processed file to the checked folder
-            shutil.move(txt_file_path, f'{checked_path}/{file}')
-            print(f"Moved file {file} to the checked folder")
+    # Update the customer details in the in-memory dictionary
+    customers_dict[str(number)] = [name, company, dirty_address]  #, clean_addr, coordinates]
 
-        # Wait for 60 seconds before checking again
-        print("Waiting for new files...")
-        time.sleep(30)
+    # Get the sheet
+    sheet = get_sheet()
+
+    # Update the customer details in the Google Sheet
+    cell = sheet.find(number)
+    write_with_delay(sheet, sheet.update_cell, cell.row, 1, name)
+    write_with_delay(sheet, sheet.update_cell, cell.row, 3, company)
+    write_with_delay(sheet, sheet.update_cell, cell.row, 4, dirty_address)
+    # TODO: add back after debugging
+    # write_with_delay(sheet, sheet.update_cell, cell.row, 5, clean_addr)
+    # write_with_delay(sheet, sheet.update_cell, cell.row, 6, str(coordinates))
+
+    print(f"Updated customer details in the database: {name}, {number}, {company}, {dirty_address}") #, {clean_addr}, {coordinates}")
+
+
+def create_new_customer(order_data, customers_dict, api_key=MAPS_API_KEY):
+    name = order_data['customer_name']
+    number = order_data['customer_phone']
+    company = order_data['company_name']
+    dirty_address = order_data['customer_address']
+    # TODO: ...
+    # clean_addr = clean_address(dirty_address)
+    # coordinates = get_coordinates_from_address(clean_addr, MAPS_API_KEY)
+
+    # Add new customer to customers_dict
+    customers_dict[number] = {'name': name, 'company': company, 'dirty_address': dirty_address} , #'clean_address': clean_addr, 'coordinates': coordinates}
+
+    # Add new customer to Google Sheet
+    sheet = get_google_sheet()
+    sheet.append_row([name, number, company, dirty_address]) #, clean_addr, str(coordinates)])
+
+    return customers_dict
+
+
+def update_customer_details_old(order_data, customers_dict):
+    number = order_data['customer_phone']
+    name = order_data['customer_name']
+    company = order_data['company_name']
+    address = order_data['customer_address']
+
+    # Update the customer details in the in-memory dictionary
+    customers_dict[str(number)] = [name, company, address]
+
+    # Get the sheet
+    sheet = get_sheet()
+
+    # Update the customer details in the Google Sheet
+    cell = sheet.find(number)
+    write_with_delay(sheet, sheet.update_cell, cell.row, 1, name)
+    write_with_delay(sheet, sheet.update_cell, cell.row, 3, company)
+    write_with_delay(sheet, sheet.update_cell, cell.row, 4, address)
+
+    print(f"Updated customer details in the database: {name}, {number}, {company}, {address}")
+
+
+def create_new_customer_old(order_data, customers_dict):
+    name = order_data['customer_name']
+    number = order_data['customer_phone']
+    company = order_data['company_name']
+    address = order_data['customer_address']
+
+    # Add new customer to customers_dict
+    customers_dict[number] = {'name': name, 'company': company, 'address': address}
+
+    # Add new customer to Google Sheet
+    sheet = get_google_sheet()
+    sheet.append_row([name, number, company, address])
+
+    return customers_dict

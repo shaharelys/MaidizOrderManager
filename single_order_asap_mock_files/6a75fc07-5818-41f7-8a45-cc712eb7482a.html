@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<!-- saved from url=(0544)https://static.glassix.com/widget/conversations/6a75fc07-5818-41f7-8a45-cc712eb7482a?conversational-flow-id=2937ce32-6598-4ced-8c18-fb268db4e0d6&culture=he-IL&default-department-id=fcef06c3-004e-4d79-9591-ed32666c1819&h=&has-had-conversations=false&host-origin=https%3A%2F%2Fcibusrest.mysodexo.co.il&host-page-title=Sodexo%20Portal&is-embedded=true&loaderBg=%23CC1480&snippet-id=ce0e94e7eccb506af22e&temp_enableNewWidgetLoading=true&unique-identifier=47aa7b2e-8b3f-4e8e-802d-32a4161c1977&w=&was-unique-identifier-provided=false&handled-widget=1 -->
+<html xmlns="http://www.w3.org/1999/xhtml" class=" notification websockets localstorage getusermedia peerconnection"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Chat</title>
+    
+    
+    <meta name="robots" content="noindex">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+
+    <!--,maximum-scale=1.0, user-scalable=no-->
+    <meta id="viewport" name="viewport" content="width=device-width, height=device-height, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+
+    <!-- full screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!--preconnect-and-dns-prefetch-->
+    <link type="text/css" rel="stylesheet" href="./style.css"><link type="text/css" rel="stylesheet" href="./css2(1)"><link rel="dns-prefetch" href="https://cdn.glassix.com/">
+    <link rel="dns-prefetch" href="https://app.glassix.com/">
+    <link rel="dns-prefetch" href="https://serverless.glassix.com/">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
+
+    <!-- disable safari automatic links-->
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" href="https://cdn.glassix.com/content/images/apple-touch-icon-iphone-60x60.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://cdn.glassix.com/content/images/apple-touch-icon-ipad-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://cdn.glassix.com/content/images/apple-touch-icon-iphone-retina-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://cdn.glassix.com/content/images/apple-touch-icon-ipad-retina-152x152.png">
+    
+    <link rel="shortcut icon" href="https://cdn.glassix.com/content/app/favicon.ico">
+    <link rel="stylesheet" href="./widget.css">
+
+<style>/* Spinner */
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.lds-ring div {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    margin: 6px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #1B80C4 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+</style><style>@media (max-width: 768px) {
+    .SnackbarContainer-bottom {
+        margin-bottom: 54px;
+    }
+}</style><style></style><style>.message-body .button-chat-widget,
+.carousel .button-chat-widget {
+  border: solid rgba(0, 0, 0, 0.2) 0.5px;
+  display: block;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  padding: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  cursor: pointer;
+  /*box-shadow: rgba(0, 0, 0, 0.2) 0px 0.5px 0.5px 0.3px;*/
+}
+
+.message-body .button-chat-widget:hover,
+.carousel .button-chat-widget:hover {
+  /*background-color: #DFDFDF;*/
+  -webkit-box-shadow: 0 8px 24px rgb(0 0 0 / 20%);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 20%);
+}
+
+.message-body .button-chat-widget:focus,
+.carousel .button-chat-widget:focus {
+  background-color: #dfdfdf;
+  outline: 1px solid #003558;
+  outline-offset: 2px;
+}
+
+.message-body .button-chat-widget:active,
+.carousel .button-chat-widget:active {
+  border: solid #f6f6f6 1px;
+  padding: 7.5px;
+}
+
+.message-body .button-chat-widget:disabled,
+.carousel .button-chat-widget:disabled {
+  pointer-events: none;
+  cursor: default;
+
+  opacity: 0.3;
+}
+
+.chat-container .concrete-message .button-chat-widget {
+  background-color: #ffffff;
+  box-shadow: none;
+  cursor: default;
+  color: rgba(0, 0, 0, 0.55);
+  opacity: 1;
+}
+
+.concrete-message .button-chat-widget:hover {
+  background-color: #ffffff;
+}
+
+.concrete-message .cover-image-container {
+  max-width: 400px;
+  margin: auto;
+}
+
+.concrete-message .template-container {
+  padding: 17px 7px 9px 7px;
+}
+
+.message-body a.button-chat-widget,
+.carousel-container a.button-chat-widget,
+.carousel a.button-chat-widget {
+  text-decoration: none;
+  color: black;
+}
+
+.message-body a.disabled,
+.carousel-container a.disable,
+.carousel a.disable,
+.carousel a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.message a.disabled {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.concrete-message a.disabled {
+  color: rgba(0, 0, 0, 0.55);
+}
+</style><style>.react-phone-number-input__row
+{
+	/* This is done to stretch the contents of this component */
+	display     : -webkit-box;
+	display     : -webkit-flex;
+	display     : -ms-flexbox;
+	display     : flex;
+	-webkit-box-align : center;
+	-webkit-align-items : center;
+	    -ms-flex-align : center;
+	        align-items : center;
+}
+
+.react-phone-number-input__phone
+{
+	/* The phone number input stretches to fill all empty space */
+	-webkit-box-flex : 1;
+	-webkit-flex : 1;
+	    -ms-flex : 1;
+	        flex : 1;
+
+	/* The phone number input should shrink
+	   to make room for the extension input */
+	min-width : 0;
+}
+
+.react-phone-number-input__icon
+{
+    /* The flag icon size is 4x3 hence the exact `width` and `height` values */
+    /*width      : 1.24em;
+	height     : 0.93em;*/
+    width: 20px;
+    height: auto;
+
+    /* `1px` is still too much for a "retina" screen but there's no way in CSS to specify "hairline" border width. */
+    /*border     : 1px solid rgba(0, 0, 0, 0.5);*/
+    border: none;
+    /* Makes sure `width`x`height` is exactly `4x3` and `border` width is not included in it */
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.react-phone-number-input__icon--international
+{
+	/* The international icon size is square */
+	/* and also has no border hence the `2 * 1px` `width` and `height` compensation */
+	width  : calc(0.93em + 2px);
+	height : calc(0.93em + 2px);
+
+	/* The international icon size is square hence the exact `padding` value */
+	/* for precise alignment with `4x3` sized country flags. */
+	padding-left  : 0.155em;
+	padding-right : 0.155em;
+
+	border : none;
+}
+
+.react-phone-number-input__error
+{
+	margin-left : calc(1.24em + 2px + 0.3em + 0.35em + 0.5em);
+	margin-top  : calc(0.3rem);
+	color       : #D30F00;
+}
+
+.react-phone-number-input__icon-image
+{
+	max-width  : 100%;
+	max-height : 100%;
+}
+
+/* Removes `<input type="number"/>` up/down arrows in Webkit browsers. */
+.react-phone-number-input__ext-input::-webkit-inner-spin-button,
+.react-phone-number-input__ext-input::-webkit-outer-spin-button
+{
+	margin             : 0 !important;
+	-webkit-appearance : none !important;
+	-moz-appearance    : textfield !important;
+}
+
+.react-phone-number-input__ext-input
+{
+	width : 3em;
+}
+
+.react-phone-number-input__ext
+{
+	white-space: nowrap;
+}
+
+.react-phone-number-input__ext,
+.react-phone-number-input__ext-input
+{
+	margin-left : 0.5em;
+}
+
+/* Styling native country `<select/>`. */
+
+.react-phone-number-input__country--native
+{
+	position     : relative;
+	-webkit-align-self   : stretch;
+	    -ms-flex-item-align   : stretch;
+	        align-self   : stretch;
+	display      : -webkit-box;
+	display      : -webkit-flex;
+	display      : -ms-flexbox;
+	display      : flex;
+	-webkit-box-align  : center;
+	-webkit-align-items  : center;
+	    -ms-flex-align  : center;
+	        align-items  : center;
+	margin-right : 0.5em;
+}
+
+.react-phone-number-input__country-select
+{
+	position : absolute;
+	top      : 0;
+	left     : 0;
+	height   : 100%;
+	width    : 100%;
+	z-index  : 1;
+	border   : 0;
+	opacity  : 0;
+	cursor   : pointer;
+}
+
+.react-phone-number-input__country-select-arrow
+{
+	display            : block;
+	content            : '';
+	width              : 0;
+	height             : 0;
+	margin-bottom      : 0.1em;
+	margin-top         : 0.3em;
+	margin-left        : 0.3em;
+	border-width       : 0.35em 0.2em 0 0.2em;
+	border-style       : solid;
+	border-left-color  : transparent;
+	border-right-color : transparent;
+	color              : #B8BDC4;
+	opacity            : 0.7;
+	-webkit-transition         : color 0.1s;
+	-o-transition         : color 0.1s;
+	transition         : color 0.1s;
+}
+
+/* Something from stackoverflow. */
+.react-phone-number-input__country-select-divider
+{
+	font-size  : 1px;
+	background : black;
+}
+
+.react-phone-number-input__country-select:focus + .react-phone-number-input__country-select-arrow,
+.react-phone-number-input__country.rrui__select--focus .rrui__select__arrow
+{
+	color : #03B2CB;
+}
+
+/* Styling phone number input */
+
+.react-phone-number-input__input
+{
+	height        : calc(0.4rem * 6);
+	outline       : none;
+	border-radius : 0;
+	padding       : 0;
+	-webkit-appearance    : none;
+	   -moz-appearance    : none;
+	        appearance    : none;
+	border        : none;
+	border-bottom : 1px solid #C5D2E0;
+	-webkit-transition    : border 0.1s;
+	-o-transition    : border 0.1s;
+	transition    : border 0.1s;
+	font-size     : inherit;
+}
+
+.react-phone-number-input__input:focus
+{
+	border-color : #03B2CB;
+}
+
+.react-phone-number-input__input--disabled
+{
+	cursor : default;
+}
+
+.react-phone-number-input__input--invalid,
+.react-phone-number-input__input--invalid:focus
+{
+	border-color : #EB2010;
+}
+
+/* Overrides Chrome autofill yellow background color */
+.react-phone-number-input__input:-webkit-autofill
+{
+	-webkit-box-shadow : 0 0 0 1000px white inset;
+	        box-shadow : 0 0 0 1000px white inset;
+}
+
+/* A small fix for `react-responsive-ui` */
+.react-phone-number-input__country .rrui__select__button
+{
+	border-bottom : none;
+}</style><style>.question-input-container {
+  margin-top: 12px;
+  width: 100%;
+}
+
+.mobile .question-input-container input {
+    touch-action: none; /*should prevent auto zooming on focus bug which happens on certain mobiles*/
+}
+    .question-input-container .answer-bot-question-button {
+  z-index: 1;
+  width: 41px;
+  border: none;
+}
+
+.question-input-container .answer-bot-question-button:not(:disabled) {
+  cursor: pointer;
+}
+
+.question-input-container .answer-bot-question-button:disabled {
+  opacity: 0.3;
+}
+.question-input-container .answer-bot-question-button:focus {
+  outline: 1px solid #003558;
+}
+
+.question-input-container .answer-bot-question-button,
+.question-input-container .v-container {
+  position: absolute;
+  width: 41px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.question-input-container .answer-bot-question-button {
+  outline: 1px solid #003558;
+}
+.question-input-container .v-container:focus {
+  outline: none;
+}
+.question-input-container .question-input {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  font-size: inherit;
+  font-family: inherit;
+  box-shadow: rgb(0 0 0 / 7%) 0px 1px 3px 0px inset;
+  border: 1px solid #ddd;
+  color: rgb(0, 0, 0);
+  border-radius: 4px;
+}
+
+.question-input-container .question-input::placeholder {
+  color: #aaa;
+}
+
+.question-input-container .question-input.empty:not(:focus):not(:disabled) {
+  background-color: rgb(254, 240, 240);
+  color: rgb(210, 38, 40);
+  border-color: rgb(251, 219, 219);
+}
+
+.question-input-container .question-input:focus {
+  outline: 1px solid #003558;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.question-input-container .question-input::-webkit-outer-spin-button,
+.question-input-container .question-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.question-input-container .question-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.messages-container .message .question-input-container .input-error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.question-input-container .react-phone-number-input.focused {
+  outline: 1px solid #003558;
+}
+
+.question-input-container .react-phone-number-input__country {
+  background-color: white;
+  margin-right: auto;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  width: 32px;
+  border: solid #ddd;
+  border-width: 1px 0px 1px 1px;
+  -webkit-box-shadow: rgb(0 0 0 / 7%) 2px 3px 3px -2px inset;
+  box-shadow: rgb(0 0 0 / 7%) 2px 3px 3px -2px inset;
+  border-radius: 4px 0 0 4px;
+}
+
+.question-input-container .react-phone-number-input__input {
+  border: solid #ddd;
+  border-width: 1px 1px 1px 0px;
+  -webkit-box-shadow: rgb(0 0 0 / 7%) -2px 3px 3px -2px inset;
+  box-shadow: rgb(0 0 0 / 7%) -2px 3px 3px -2px inset;
+  margin: 0;
+  flex-basis: 195px;
+  border-radius: 0 4px 4px 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.question-input-container .react-phone-number-input.disabled .react-phone-number-input__country,
+.question-input-container .react-phone-number-input.disabled .react-phone-number-input__input,
+.question-input-container .question-input:disabled {
+  background-color: #f3f3f4;
+}
+
+.react-phone-number-input.disabled .react-phone-number-input__country-select {
+  cursor: default;
+}
+
+.question-input-container .react-phone-number-input__icon {
+  height: 15px;
+}
+
+.question-input-container .location-options-container {
+  position: fixed;
+  background-color: white;
+  width: 255px;
+  z-index: 6;
+  border: solid #ddd;
+  border-width: 0 1px 1px 1px;
+  border-radius: 4px;
+  max-height: 105px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.question-input-container .location-options-container .location-option {
+  padding: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  text-align: inherit;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.question-input-container .location-options-container .location-option.selected {
+  background-color: #f5f5f5;
+}
+
+.question-input-container .location-options-container .location-option:not(:last-child) {
+  border-bottom: 1px solid #ededed;
+}
+</style><style>.carousel .control-arrow,.carousel.carousel-slider .control-arrow{-webkit-transition:all .25s ease-in;-moz-transition:all .25s ease-in;-ms-transition:all .25s ease-in;-o-transition:all .25s ease-in;transition:all .25s ease-in;opacity:.4;filter:alpha(opacity=40);position:absolute;z-index:2;top:20px;background:none;border:0;font-size:32px;cursor:pointer}.carousel .control-arrow:hover{opacity:1;filter:alpha(opacity=100)}.carousel .control-arrow:before,.carousel.carousel-slider .control-arrow:before{margin:0 5px;display:inline-block;border-top:8px solid transparent;border-bottom:8px solid transparent;content:''}.carousel .control-disabled.control-arrow{opacity:0;filter:alpha(opacity=0);cursor:inherit;display:none}.carousel .control-prev.control-arrow{left:0}.carousel .control-prev.control-arrow:before{border-right:8px solid #fff}.carousel .control-next.control-arrow{right:0}.carousel .control-next.control-arrow:before{border-left:8px solid #fff}.carousel-root{outline:none}.carousel{position:relative;width:100%}.carousel *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.carousel img{width:100%;display:inline-block;pointer-events:none}.carousel .carousel{position:relative}.carousel .control-arrow{outline:0;border:0;background:none;top:50%;margin-top:-13px;font-size:18px}.carousel .thumbs-wrapper{margin:20px;overflow:hidden}.carousel .thumbs{-webkit-transition:all .15s ease-in;-moz-transition:all .15s ease-in;-ms-transition:all .15s ease-in;-o-transition:all .15s ease-in;transition:all .15s ease-in;-webkit-transform:translate3d(0, 0, 0);-moz-transform:translate3d(0, 0, 0);-ms-transform:translate3d(0, 0, 0);-o-transform:translate3d(0, 0, 0);transform:translate3d(0, 0, 0);position:relative;list-style:none;white-space:nowrap}.carousel .thumb{-webkit-transition:border .15s ease-in;-moz-transition:border .15s ease-in;-ms-transition:border .15s ease-in;-o-transition:border .15s ease-in;transition:border .15s ease-in;display:inline-block;margin-right:6px;white-space:nowrap;overflow:hidden;border:3px solid #fff;padding:2px}.carousel .thumb:focus{border:3px solid #ccc;outline:none}.carousel .thumb.selected,.carousel .thumb:hover{border:3px solid #333}.carousel .thumb img{vertical-align:top}.carousel.carousel-slider{position:relative;margin:0;overflow:hidden}.carousel.carousel-slider .control-arrow{top:0;color:#fff;font-size:26px;bottom:0;margin-top:0;padding:5px}.carousel.carousel-slider .control-arrow:hover{background:rgba(0,0,0,0.2)}.carousel .slider-wrapper{overflow:hidden;margin:auto;width:100%;-webkit-transition:height .15s ease-in;-moz-transition:height .15s ease-in;-ms-transition:height .15s ease-in;-o-transition:height .15s ease-in;transition:height .15s ease-in}.carousel .slider-wrapper.axis-horizontal .slider{-ms-box-orient:horizontal;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-moz-flex;display:-webkit-flex;display:flex}.carousel .slider-wrapper.axis-horizontal .slider .slide{flex-direction:column;flex-flow:column}.carousel .slider-wrapper.axis-vertical{-ms-box-orient:horizontal;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-moz-flex;display:-webkit-flex;display:flex}.carousel .slider-wrapper.axis-vertical .slider{-webkit-flex-direction:column;flex-direction:column}.carousel .slider{margin:0;padding:0;position:relative;list-style:none;width:100%}.carousel .slider.animated{-webkit-transition:all .35s ease-in-out;-moz-transition:all .35s ease-in-out;-ms-transition:all .35s ease-in-out;-o-transition:all .35s ease-in-out;transition:all .35s ease-in-out}.carousel .slide{min-width:100%;margin:0;position:relative;text-align:center;background:#000}.carousel .slide img{width:100%;vertical-align:top;border:0}.carousel .slide iframe{display:inline-block;width:calc(100% - 80px);margin:0 40px 40px;border:0}.carousel .slide .legend{-webkit-transition:all .5s ease-in-out;-moz-transition:all .5s ease-in-out;-ms-transition:all .5s ease-in-out;-o-transition:all .5s ease-in-out;transition:all .5s ease-in-out;position:absolute;bottom:40px;left:50%;margin-left:-45%;width:90%;border-radius:10px;background:#000;color:#fff;padding:10px;font-size:12px;text-align:center;opacity:0.25;-webkit-transition:opacity .35s ease-in-out;-moz-transition:opacity .35s ease-in-out;-ms-transition:opacity .35s ease-in-out;-o-transition:opacity .35s ease-in-out;transition:opacity .35s ease-in-out}.carousel .control-dots{position:absolute;bottom:0;margin:10px 0;padding:0;text-align:center;width:100%}@media (min-width: 960px){.carousel .control-dots{bottom:0}}.carousel .control-dots .dot{-webkit-transition:opacity .25s ease-in;-moz-transition:opacity .25s ease-in;-ms-transition:opacity .25s ease-in;-o-transition:opacity .25s ease-in;transition:opacity .25s ease-in;opacity:.3;filter:alpha(opacity=30);box-shadow:1px 1px 2px rgba(0,0,0,0.9);background:#fff;border-radius:50%;width:8px;height:8px;cursor:pointer;display:inline-block;margin:0 8px}.carousel .control-dots .dot.selected,.carousel .control-dots .dot:hover{opacity:1;filter:alpha(opacity=100)}.carousel .carousel-status{position:absolute;top:0;right:0;padding:5px;font-size:10px;text-shadow:1px 1px 1px rgba(0,0,0,0.9);color:#fff}.carousel:hover .slide .legend{opacity:1}
+</style><style>.carousel time {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: #999999;
+    font-size: small;
+}
+
+.inner-carousel-item {
+    /*position: relative;*/
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.inner-carousel-item .buttons-container {
+    margin-bottom: 23px;
+}
+
+.carousel .slider-wrapper.axis-horizontal .slider li.slide {
+    margin: 5px;
+    /*text-align: center;*/
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0.5px 0.5px 0.3px;
+    min-width: 77% !important; 
+}
+
+
+
+.messages .outbound-message .carousel .slider-wrapper.axis-horizontal .slider li.slide {
+    /*background-color: #AAD7EE;*/
+    background-color: var(--outbound-message-background-color);
+}
+
+.messages .inbound-message .carousel .slider-wrapper.axis-horizontal .slider li.slide {
+    /*background-color: #F5F5F5;*/
+    background-color: var(--inbound-message-background-color);
+}
+
+.outbound-message .carousel .slider-wrapper.axis-horizontal .slider li.slide {
+    background-color: #AAD7EE;
+}
+
+.inbound-message .carousel .slider-wrapper.axis-horizontal .slider li.slide {
+    background-color: #F5F5F5;
+}
+
+div.carousel.carousel-slider {
+    max-width: 400px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    
+}
+
+.slider-wrapper ul.slider {
+    background-color: transparent;
+    cursor: auto;
+    padding-bottom: 10px;
+}
+
+.slider-wrapper ul.slider:before {
+    height: 0px;
+    width: 0px;
+    border:none;
+}
+
+.carousel.carousel-slider button.control-arrow:hover {
+    background: rgba(0,0,0,.5);
+}
+.carousel.carousel-slider button.control-arrow {
+    background: rgba(0,0,0,.2);
+}
+
+.carousel.carousel-slider .control-arrow{
+    opacity: 1;
+}
+
+.carousel .control-next.control-arrow:before {
+    border-left: 12px solid #fff;
+}
+
+.carousel .control-prev.control-arrow:before {
+    border-right: 12px solid #fff;
+}
+
+.carousel .control-arrow:before, .carousel.carousel-slider .control-arrow:before {
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+}</style><style>/** * Extracted from: SweetAlert * Modified by: Istiak Tridip */
+.checkmark-container .success-checkmark {
+    width: 88px;
+    height: 115px;
+    margin: 0 auto;
+}
+
+.checkmark-container .success-checkmark .check-icon {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    border-radius: 50%;
+    box-sizing: content-box;
+    border: 4px solid #4caf50;
+}
+
+.checkmark-container .success-checkmark .check-icon::before {
+    top: 3px;
+    left: -2px;
+    width: 30px;
+    transform-origin: 100% 50%;
+    border-radius: 100px 0 0 100px;
+}
+
+.checkmark-container .success-checkmark .check-icon::after {
+    top: 0;
+    left: 30px;
+    width: 60px;
+    transform-origin: 0 50%;
+    border-radius: 0 100px 100px 0;
+    animation: rotate-circle 4.25s ease-in;
+}
+
+.checkmark-container .success-checkmark .check-icon::before, .success-checkmark .check-icon::after {
+    content: '';
+    height: 100px;
+    position: absolute;
+    background: #fff;
+    transform: rotate(-45deg);
+}
+
+.checkmark-container .success-checkmark .check-icon .icon-line {
+    height: 5px;
+    background-color: #4caf50;
+    display: block;
+    border-radius: 2px;
+    position: absolute;
+    z-index: 10;
+}
+
+.checkmark-container .success-checkmark .check-icon .icon-line.line-tip {
+    top: 46px;
+    left: 14px;
+    width: 25px;
+    transform: rotate(45deg);
+    animation: icon-line-tip 0.75s;
+}
+
+.checkmark-container .success-checkmark .check-icon .icon-line.line-long {
+    top: 38px;
+    right: 8px;
+    width: 47px;
+    transform: rotate(-45deg);
+    animation: icon-line-long 0.75s;
+}
+
+.checkmark-container .success-checkmark .check-icon .icon-circle {
+    top: -4px;
+    left: -4px;
+    z-index: 10;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: absolute;
+    box-sizing: content-box;
+    border: 4px solid #4caf50;
+}
+
+.checkmark-container .success-checkmark .check-icon .icon-fix {
+    top: 8px;
+    width: 5px;
+    left: 26px;
+    z-index: 1;
+    height: 85px;
+    position: absolute;
+    transform: rotate(-45deg);
+    background-color: #fff;
+}
+
+@keyframes rotate-circle {
+    0% {
+        transform: rotate(-45deg);
+    }
+
+    5% {
+        transform: rotate(-45deg);
+    }
+
+    12% {
+        transform: rotate(-405deg);
+    }
+
+    100% {
+        transform: rotate(-405deg);
+    }
+}
+
+@keyframes icon-line-tip {
+    0% {
+        width: 0;
+        left: 1px;
+        top: 19px;
+    }
+
+    54% {
+        width: 0;
+        left: 1px;
+        top: 19px;
+    }
+
+    70% {
+        width: 50px;
+        left: -8px;
+        top: 37px;
+    }
+
+    84% {
+        width: 17px;
+        left: 21px;
+        top: 48px;
+    }
+
+    100% {
+        width: 25px;
+        left: 14px;
+        top: 45px;
+    }
+}
+
+@keyframes icon-line-long {
+    0% {
+        width: 0;
+        right: 46px;
+        top: 54px;
+    }
+
+    65% {
+        width: 0;
+        right: 46px;
+        top: 54px;
+    }
+
+    84% {
+        width: 55px;
+        right: 0px;
+        top: 35px;
+    }
+
+    100% {
+        width: 47px;
+        right: 8px;
+        top: 38px;
+    }
+}
+</style><style>.completed-survey-message-container {
+    background-color: #fff;
+    border: 1px solid #d4d4d5;
+    border-radius: .28571429rem;
+    outline: none;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(34,36,38,.12), 0 2px 10px 0 rgba(34,36,38,.15);
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12), 0 2px 10px 0 rgba(34,36,38,.15);
+    overflow: initial;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    width: 250px;
+    padding: 1em;
+    transform: translate(-50%, -50%);
+}
+
+
+
+
+.completed-survey-message-container .close-completed-survey-message{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    z-index: 15;
+}</style><style>.quick-replies-container .quick-replies-button {
+    border: solid rgba(0, 0, 0, 0.2) 0.5px;
+    text-align: center;
+    /*background-color: #FFFFFF;*/
+    background-color: var(--inbound-message-background-color);
+    border-radius: 10px;
+    margin: 5px;
+    padding: 8px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0.5px 0.5px 0.3px;
+    margin-top: 6.5px;
+    margin-bottom: 0;
+    height: 34px;
+}
+
+    .quick-replies-container .quick-replies-button:hover {
+        background-color: #DFDFDF;
+    }
+
+    .quick-replies-container .quick-replies-button:disabled {
+        cursor: default;
+    }
+    .quick-replies-container .quick-replies-button:focus {
+        background-color: #DFDFDF;
+        outline: 0;
+    }
+
+    .quick-replies-container .quick-replies-button:active {
+        border: solid #F6F6F6 1px;
+        padding: 7.5px;
+    }
+
+.quick-replies-container {
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    bottom: 40px;
+    background-color: #FFFFFF;
+}
+
+    .quick-replies-container #modules {
+        height: 90px;
+        margin: 5px;
+        white-space: nowrap;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+
+.quick-replies-container .scroll-button {
+    background-color: transparent;
+    border-color: transparent;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 2em;
+    cursor: pointer;
+    padding: 0px;
+    margin: 0px;
+    width: 44px;
+    box-sizing: border-box;
+}
+
+    .quick-replies-container .scroll-button:hover {
+        color: rgba(0, 0, 0, 0.7);
+    }
+
+    .quick-replies-container .scroll-button:focus {
+        color: rgba(0, 0, 0, 0.7);
+        outline: 0;
+    }
+
+    .quick-replies-container .scroll-button:disabled {
+        cursor: default;
+    }
+
+</style><style>.emoji-picker-container {
+    position: absolute;
+    bottom: 40px;
+    width: 310px;
+    height: 270px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    z-index: 2;
+
+}
+
+
+.emoji-picker-container.open, .emoji-picker-container-recent.open {
+    display: block;
+}
+
+
+.emoji-picker-container.closed, .emoji-picker-container-recent.closed {
+    display: none;
+}
+
+.emoji-picker-container-recent {
+    position: absolute;
+    bottom: 40px;
+    width: 220px;
+    height: 46px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+.category-picker {
+    width: 100%;
+    height: 46px;
+    border-bottom: 1px solid #ddd;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.emojis-container {
+    width: 100%;
+    height: calc(100% - 47px);
+    direction: ltr;
+    background-color: #fff;
+
+}
+
+.recent-emojis-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.emojis {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.category-picker button.category-button, .emojis-container button.emoji, .recent-emojis-container button.emoji, .recent-emojis-container button.action-button {
+    display: inline-block;
+    margin: 1px;
+    border: none;
+    background: transparent;
+    font-size: 25px !important;
+    font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    outline: 0;
+    padding: 0;
+    cursor: pointer;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    height: 43px;
+}
+
+.category-picker .category-button.selected, .category-picker .category-button:hover {
+    background-color: #E1E2E2;
+}
+
+.emojis-container .emoji {
+    /*font-size: 25px;*/
+    max-width: 35px;
+}
+
+.emojis-container .emoji:hover, .recent-emojis-container .emoji:hover {
+    transform: scale(1.2);
+}
+
+.emoji-picker button.action-button, .emoji-picker button.button-cell {
+    outline: 0;
+    text-align: center;
+    color: #737376;
+}
+
+    .emoji-picker button.action-button.disabeld {
+        pointer-events: none;
+        cursor: default;
+        color: rgb(153, 153, 153);
+    }
+
+.input-container .emoji-picker button.button-cell:focus {
+    /*outline: 0;*/
+}</style><style>.welcome-screen-footer .footer-channel-selections .channel-button-container {
+    justify-content: center;
+    display: flex;
+}
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button {
+    color: inherit;
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    max-width: 85px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    align-items: center;
+    padding: 0;
+    outline-offset: 2px;
+}
+
+
+
+    .welcome-screen-footer .footer-channel-selections .footer-channel-button .channel-button-icon-container {
+        box-sizing: border-box;
+        font-size: 1.8em;
+        border-radius: 50%;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 45px;
+        width: 45px;
+        -webkit-transition: 0.3s ease-in;
+        -moz-transition: 0.3s ease-in;
+        -ms-transition: 0.3s ease-in;
+        -o-transition: 0.3s ease-in;
+        transition: 0.3s ease-in;
+        margin: auto;
+    }
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button:focus {
+    outline: 1px solid #003558;
+}
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button:active {
+    outline: none;
+}
+
+
+@media only screen and (max-device-width: 667px) {
+    .welcome-screen-footer .footer-channel-selections .footer-channel-button:focus {
+        outline: none
+    }
+}
+
+@media only screen and (min-device-width: 667px) {
+
+
+    .welcome-screen-footer .footer-channel-selections .footer-channel-button:hover .channel-button-icon-container {
+        background-color: transparent !important;
+        border: 2px solid;
+        box-shadow: none;
+    }
+
+    .welcome-screen-footer .footer-channel-selections .footer-channel-button.sms:hover .channel-button-icon-container {
+        color: #ff9900;
+    }
+
+    .welcome-screen-footer .footer-channel-selections .footer-channel-button.whatsapp:hover .channel-button-icon-container {
+        color: #65C258;
+    }
+
+    .welcome-screen-footer .footer-channel-selections .footer-channel-button.mail:hover .channel-button-icon-container {
+        color: #333;
+    }
+
+    .welcome-screen-footer .footer-channel-selections .footer-channel-button.fbmessenger:hover .channel-button-icon-container {
+        color: #0084FF;
+    }
+
+    .welcome-screen-footer .footer-channel-selections .footer-channel-button.instagram:hover .channel-button-icon-container {
+        color: #9E30BB;
+    }
+
+    .welcome-screen-footer .footer-channel-selections .footer-channel-button.viber:hover .channel-button-icon-container {
+        color: #7B519C;
+    }
+
+    .welcome-screen-footer .footer-channel-selections .footer-channel-button.apple-business-chat:hover .channel-button-icon-container {
+        color: #007aff;
+    }
+
+}
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button.sms .channel-button-icon-container {
+    background-color: #ff9900;
+}
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button.whatsapp .channel-button-icon-container {
+    background-color: #65C258;
+}
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button.mail .channel-button-icon-container {
+    background-color: #333;
+}
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button.fbmessenger .channel-button-icon-container {
+    background-color: #0084FF;
+}
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button.instagram .channel-button-icon-container {
+    background-color: #9E30BB;
+}
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button.viber .channel-button-icon-container {
+    background-color: #7B519C;
+}
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button.apple-business-chat .channel-button-icon-container {
+    background-color: #007aff;
+}
+
+.welcome-screen-footer .footer-channel-selections .footer-channel-button .channel-button-text {
+    font-size: 0.8em;
+    padding-top: 5px;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style><style>.welcome-screen-footer .footer-carousel-container .footer-channel-selections {
+    display: flex;
+    align-items: center;
+    min-width: calc(100% - 40px);
+    padding: 0 20px;
+    margin-top: 12px;
+}
+
+.welcome-screen-footer .footer-mobile-carousel .footer-channel-selections {
+    display: flex;
+    height: 103px;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    overflow-x: auto;
+}
+
+</style><style>.welcome-screen-footer .footer-carousel-container {
+    position: relative;
+}
+
+.welcome-screen-footer .footer-carousel-container .slider-wrapper {
+    display: flex;
+    -webkit-transition: 0.3s ease-in;
+    -moz-transition: 0.3s ease-in;
+    -ms-transition: 0.3s ease-in;
+    -o-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+}
+
+
+    .welcome-screen-footer .footer-carousel-container .arrow-button {
+        z-index: 6;
+        border: none;
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        outline-offset: 2px;
+    }
+
+.welcome-screen-footer .footer-carousel-container .arrow-button i {
+    opacity: 0.4;
+    -webkit-transition: 0.3s ease-in;
+    -moz-transition: 0.3s ease-in;
+    -ms-transition: 0.3s ease-in;
+    -o-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+}
+
+.welcome-screen-footer .footer-carousel-container .arrow-button:hover i {
+    opacity: 0.8;
+}
+
+.welcome-screen-footer .footer-carousel-container .arrow-button:focus {
+    outline: 1px solid #003558;
+}
+
+.welcome-screen-footer .footer-carousel-container .arrow-button:active {
+    outline: none;
+} 
+
+.welcome-screen-footer .footer-carousel-container .arrow-button:hover {
+    cursor: pointer;
+}
+
+        .welcome-screen-footer .footer-carousel-container .arrow-button i {
+            font-weight: 500;
+        }
+
+.welcome-screen-footer .footer-carousel-container .arrow-button.left  {
+    left: 5px;
+}
+
+.welcome-screen-footer .footer-carousel-container .arrow-button.right  {
+    right: 5px;
+}</style><style>.welcome-screen-footer .footer-mobile-carousel {
+    width: 100%;
+    height: 80px;
+    overflow: hidden;
+}
+</style><style>.welcome-screen-footer {
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 15px 0px;
+}
+</style></head>
+<body>
+
+    <!-- <div id="loader-container">
+        <div id="loader" role="progressbar"></div>
+    </div> -->
+        
+        <div id="loader-container">
+        <div class="lds-ring initial" style="display: block; margin-left: auto; margin-right: auto;" }}="">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+        
+    <div class="mobile" id="main"></div>
+
+    <script>
+        // Production fallback
+        window.resourcesVersion = '1.0.0.0';
+        window.appHost = 'https://app.glassix.com';
+        window.cdnHost = 'https://cdn.glassix.com';
+        window.serverDateTimeDifferenceInSeconds = 0;
+        window.instrumentationKey = '12624fbc-f331-4e59-a203-84694cb48c1c';
+    </script>
+    
+    <!-- <script src='https://functions.glassix.com/api/widget/initialconfig'></script> -->
+    <script src="./getconfigurations"></script>
+    <!-- <script src="https://glassix-functions-dev-west-eu-1.azurewebsites.net/api/widget/initialconfig"></script> -->
+
+    <!-- this should be loaded last  -->
+    <!--         ↓↓↓↓↓          -->
+    <script>
+        // var initialConfigScript = document.createElement('script');
+        // document.body.appendChild(initialConfigScript);
+
+        // initialConfigScript.onload = function () {
+        var bundleScriptFileName = cdnHost + '/bundles/widget.js';
+        var scriptFileName = cdnHost + '/dist/widget.entry.min.js';
+
+
+        var firstScript = document.createElement('script');
+        document.body.appendChild(firstScript);
+
+        firstScript.onload = function () {
+            // this should be loaded last
+
+            var secondScript = document.createElement('script');
+            document.body.appendChild(secondScript);
+            secondScript.src = scriptFileName + '?v=' + window.resourcesVersion;
+        }
+
+        firstScript.src = bundleScriptFileName + '?v=' + window.resourcesVersion;
+        // }
+
+        // var initialConfigSource;
+
+        // if (window.location.host.indexOf('dev') > -1) {
+        //     initialConfigSource = 'https://glassix-functions-dev-west-eu-1.azurewebsites.net/api/widget/initialconfig';
+        // } else {
+        //     initialConfigSource = 'https://functions.glassix.com/api/widget/initialconfig';
+        // }
+
+        // initialConfigScript.src = initialConfigSource + '?d=' + new Date().getTime();
+    </script><script src="./widget.js(2).הורדה"></script>
+
+
+<script src="./widget.entry.min.js.הורדה"></script></body></html>

@@ -27,55 +27,10 @@ def get_contacts(service):
     return contacts_dict
 
 
-def add_country_code(number, country_code="+972"):
-    if number.startswith(country_code) or number.startswith('+'):
-        return number
-    if number.startswith('0'):
-        number = number[1:]
-    number_with_country_code = country_code + number
-    return number_with_country_code
-
-
-# Check if a contact is in the dictionary
-def contact_exists(number, contact_dict):
-    for key in contact_dict:
-        if key == number:
-            return True
-    return False
-
-
 # Create a new contact
-def create_contact_old(name, number, service, contact_dict):
-    if contact_exists(number, contact_dict):
-        print(f"Error, function, contact_exists(number, contact_dict) called for existing contact.\n"
-              f"number\t:\t{number}")
-        return
-
-    person = {
-        "names": [
-            {
-                "givenName": name,
-                "familyName": "מיידיז"
-            }
-        ],
-        "phoneNumbers": [
-            {
-                "value": number,
-                "type": "mobile"
-            }
-        ]
-    }
-
-    result = service.people().createContact(body=person).execute()
-    print(f"Contact created. name: {name}, number: {number} | {result['resourceName']}")
-
-    # Update the contact_dict with the new contact
-    contact_dict[number] = name
-
-
 def create_contact(name, number, service, contact_dict):
 
-    if contact_exists(number, contact_dict):
+    if number in contact_dict:
         print(f"The contact '{name}' with the number {number} is already exist on your account.")
         return
 
