@@ -29,7 +29,8 @@ def prevent_sleep():
         ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED)
 
 
-def manage_package(service, contact_dict):
+def manage_package(service, contact_dict, customers_dict):
+
     # Create structure and and check for new orders on the website
     package = process_package()
 
@@ -38,28 +39,37 @@ def manage_package(service, contact_dict):
         return
 
     for order_data in package:
-        name, number, = order_data['customer_name'], order_data['customer_phone']
+        # Check if the order should be accepted and update its status
+        # order_data['status'] = determine_order_status_and_update(order_data)
+        """above is to be deleted - moved to order_manager"""
+
+        name, number, flag = order_data['customer_name'], order_data['customer_phone'], False
 
         # Check if contact exists and create it if it doesn't
         if number not in contact_dict:
-            print(f"Creating new contact:\t{name}\t{number}\t...")
+            flag = True
+            print(f"Creating contact with the number - {number}, and the name - {name}..")
             create_contact(name, number, service, contact_dict)
 
-        # Connect to the database and upsert the customer
-        conn = db_manager.get_db_connection()
-        try:
-            db_manager.upsert_customer(conn, order_data)
-        except ValueError as e:
-            print(e)
-        finally:
-            conn.close()
+        # Check if customer exists on the database
+        if number in customers_dict:
+            if flag:
+                print(f"Error, the number {number} is already on your db, but was'nt on your account.")
+
+            # Update customer details in the database
+            db_manager.update_customer_details(order_data, customers_dict)
+
+        else:
+            # Create a new customer in the database
+            print("Adding new customer to the database..")
+            customers_dict = db_manager.create_new_customer(order_data, customers_dict)
 
         # TODO: Add the new order to the customer's orders on the db
-        db_manager.insert_order(conn, order_data)
+        # db_manager.add_order_to_customer_orders(new_order)
 
         sids = send_whatsapp_message(order_data)
 
-    return package, contact_dict
+    return package, contact_dict, customers_dict
 
 
 def ask_about_next_trip():
@@ -94,6 +104,7 @@ def main():
 
     # Load data from db and People API
     print("Loading data from database and People API..")
+    customers_dict = db_manager.load_customers_from_sheet()
     contact_dict = contacts_manager.get_contacts(service)
 
     # Connect to orders site
