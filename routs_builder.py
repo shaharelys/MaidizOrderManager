@@ -124,7 +124,7 @@ def generate_google_maps_link(home_base_coordinates, waypoints, mode='bicycling'
     return f"https://www.google.com/maps/dir/?api=1&origin={origin}&destination={destination}&waypoints={waypoints_str}&travelmode={mode}"
 
 
-def manage_trip(number_of_delivery_persons, customers_dict, upcoming_orders):
+def build_routs(number_of_delivery_persons, customers_dict, upcoming_orders):
     home_base = HOME_BASE
     print(f"Home base address: {home_base}")
     gmaps = googlemaps.Client(key=MAPS_API_KEY)
@@ -187,7 +187,7 @@ if __name__ == "__main__":
 
     # Test the manage_trip function
     number_of_delivery_persons = 2
-    routes_links = manage_trip(number_of_delivery_persons, customers_dict, upcoming_orders)
+    routes_links = build_routs(number_of_delivery_persons, customers_dict, upcoming_orders)
     print("Google Maps URLs:")
     for i, url in enumerate(routes_links, start=1):
         print(f"Route {i}: {url}")

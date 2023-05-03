@@ -1,13 +1,14 @@
-from CONSTS import DELIVERY_PERSONNEL_NUMBERS, BUSINESS_NUMBER, SHAHARS_NUMBER
+from CONSTS import DELIVERY_PERSONNEL_NUMBERS, BUSINESS_NUMBER
 from config import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
 from twilio.rest import Client
+
 
 def send_whatsapp_message(order_data):
     message_text = f"# Note: dynamic content may be written in Hebrew\n" \
                    f"Phone: {order_data['customer_phone']}\n" \
-                   f"Name: {order_data['customer_name']}, Company: {order_data['company_name']}\n" \
+                   f"Name: {order_data['customer_name']}, Company: {order_data['customer_company']}\n" \
                    f"Address: {order_data['customer_address']}\n" \
-                   f"Wanted at: {order_data['order_time']}"
+                   f"Wanted at: {order_data['order_expected']}"
     client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
     sids = []

@@ -28,7 +28,7 @@ def setup_database():
         CREATE TABLE IF NOT EXISTS orders (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             customer_id INTEGER,
-            customer_phone TEXT,
+            customer_phone TEXT,                
             customer_email TEXT,
             customer_name TEXT,
             customer_address TEXT,
@@ -41,7 +41,6 @@ def setup_database():
             order_expected TEXT,
             order_amount REAL,
             order_source INTEGER,
-            
             order_status INTEGER,
             timestamp TEXT,
             FOREIGN KEY (customer_id) REFERENCES customers (id)
@@ -63,7 +62,7 @@ def add_order(conn, order_data):
     Returns:
         None
     """
-
+    print(f"Adding order to {DB_NAME}..")
     cur = conn.cursor()
     cur.execute("""
         INSERT INTO orders (
@@ -90,6 +89,29 @@ def add_order(conn, order_data):
         order_data['timestamp']
     ))
     conn.commit()
+    print("Added order to db successfully..")
+
+    db_order_id = cur.lastrowid
+
+    return db_order_id
+
+
+def order_exists(conn, source_order_id):
+    """
+    Checks if an order with the same source_order_id exists in the orders table.
+
+    Args:
+        conn: A database connection object.
+        source_order_id: The source order ID to check.
+
+    Returns:
+        bool: True if the order exists, False otherwise.
+    """
+    cur = conn.cursor()
+    cur.execute("SELECT COUNT(*) FROM orders WHERE order_id=?", (source_order_id,))
+    count = cur.fetchone()[0]
+
+    return count > 0
 
 
 def upsert_customer(conn, order_data):
@@ -150,8 +172,8 @@ def upsert_customer(conn, order_data):
 
     # Add new customer to the database
     else:
-        cur.execute("INSERT INTO customers (name, phone_number, company, address, email) VALUES (?, ?, ?, ?, ?)",
-                    (name, number, company, address, email))
+        cur.execute("INSERT INTO customers (name, phone_number, email, company, address) VALUES (?, ?, ?, ?, ?)",
+                    (name, number, email, company, address))
         conn.commit()
 
         # Get the customer_id of the newly inserted customer
@@ -190,9 +212,31 @@ def view_orders_data(conn):
               f"Status      \t\t{order[15]}\n"
               f"Timestamp   \t\t{order[16]}"
               )
-        order_content = json.loads(order[9])  # Assuming that order_content is the 9th field in the table
+        order_content = json.loads(order[9])
         print("Order Content:", order_content)
 
+        print("\n")
+
+
+def view_customers_data(conn):
+    """
+    Retrieves and prints all customer data from the customers table in the database.
+
+    Args:
+        conn: A database connection object.
+    """
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM customers")
+    customers = cur.fetchall()
+
+    for customer in customers:
+        print(f"Customer ID:\t\t{customer[0]}\n"
+              f"Name       :\t\t{customer[1]}\n"
+              f"Phone      :\t\t{customer[2]}\n"
+              f"Email      :\t\t{customer[3] if customer[3] else None}\n"
+              f"Company    :\t\t{customer[4]}\n"
+              f"Address    :\t\t{customer[5]}\n"
+              )
         print("\n")
 
 
@@ -202,3 +246,4 @@ setup_database()
 if __name__ == "__main__":
     conn = get_db_connection()
     view_orders_data(conn=conn)
+    # view_customers_data(conn=conn)

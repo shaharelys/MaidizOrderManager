@@ -1,0 +1,20 @@
+var __ZA_ver_all='1.js468.www684.extjs63i.wid398.land82n';
+var __ZA_cidt='6faQevPPmb1eTJf+O9HWIEHDY5n+zIbnQNphCI5bbtc=';
+var __ZA_status_vars={"setup_complete":"1","subdomains":"0","no_cd_cookies":"0","campaigns_active":"1","campaigns":{"gFonts":[{"name":"calibri","href":"","active":"1","production":"0"}],"gDefFont":"","custom_campaign_tracking":"dataLayer.push({ 'event' : 'ZA_Campaigns', 'event_category': 'ZA_Campaigns', 'event_action' : '$campaign_name', 'event_label' : '$event_name' });","desktop_greetingBar_selector":"","mobile_greetingBar_selector":"","scroll_selector":"","js_code_on_load":"","canonical_url":"","url_wo_query":"","dyn_content_update_empty":"","desktop_greetingBar_margin":"padding","mobile_greetingBar_margin":"padding"},"dynamic":""};
+var __ZA_server_time=1681027579;
+
+if(typeof __ZA_MappingLastUpdate == 'undefined') {
+    var __ZA_MappingLastUpdate='1669835502';
+    var __ZA_WidgetHost='https://widgetapi.zoomengage.com';
+    var __ZA_ApiCdnHost='https://widgetapi.zoomengage.com';
+    var __ZA_ImagesHost='//zstorage.zoomengage.com';
+    var __ZA_UserImagesHost='//cstorage.zoomengage.com';
+    var __ZA_jsPath = 'https://widgetver.zoomengage.com';
+    var __ZA_widgetSuffix = '_398.js';
+    if(typeof _zaq != 'undefined')
+        _zaq.push({type:'init',customer_id:'19763344'});
+    (function() {
+        var elem = document.createElement('script');elem.type = 'text/javascript';elem.async = true;
+        elem.src = 'https://widgetver.zoomengage.com/js/za_widget_398.js';
+        var ssc = document.getElementsByTagName('script')[0];ssc.parentNode.insertBefore(elem, ssc);})();
+}

@@ -1,9 +1,10 @@
 # Import necessary modules and sub-programs
 import CONSTS
-import db_manager
+import database
 import contacts_manager
-import trip_manager
+import routs_builder
 from order_manager import site_connection, close_connection, process_package
+from order_manager import print_to_screen, print_package, back_home, ask_human
 from contacts_manager import create_contact
 from googleapiclient.discovery import build
 import ctypes
@@ -11,15 +12,11 @@ import platform
 from messages_manager import send_whatsapp_message
 from datetime import time, datetime
 import threading
-from trip_manager import manage_trip
+from routs_builder import build_routs
 from datetime import datetime
 import time
-
-# Shared data structure for communication between main thread and input thread
-trip_data = {
-    "last_order_time": None,
-    "number_of_delivery_persons": None,
-}
+from stickers_printer import manage_and_print_order_stickers
+from stickers_printer import print_accepted_orders_stickers_and_push_status
 
 
 def prevent_sleep():
@@ -30,13 +27,17 @@ def prevent_sleep():
 
 
 def manage_package(service, contact_dict):
-    # Create structure and and check for new orders on the website
+    # Check for new orders on the website
     package = process_package()
 
+    # control functionality
     if package is None:
         print("Error: Received invalid package. Unable to process and manage the order.")
         return
 
+    package_total = 0
+
+    # Collect package data
     for order_data in package:
         name, number, = order_data['customer_name'], order_data['customer_phone']
 
@@ -46,43 +47,47 @@ def manage_package(service, contact_dict):
             create_contact(name, number, service, contact_dict)
 
         # Connect to the database and upsert the customer
-        conn = db_manager.get_db_connection()
+        conn = database.get_db_connection()
+
+        # Check if an order with the same source_order_id already exists
+        if database.order_exists(conn, order_data['order_id']):
+            print(f"Order with the same source_order_id ({order_data['order_id']}) already exists on the db.")
+            return package, contact_dict
+
         try:
-            db_manager.upsert_customer(conn, order_data)
+            customer_id = database.upsert_customer(conn, order_data)
+            # Add the new order to the orders table on the db
+            order_data['customer_id'] = customer_id
+            database.add_order(conn, order_data)
+
         except ValueError as e:
             print(e)
         finally:
             conn.close()
 
-        # TODO: Add the new order to the customer's orders on the db
-        db_manager.insert_order(conn, order_data)
+        package_total += float(order_data['order_amount'].strip(' ₪'))
+        # package_orders_ids.append(db_order_id)
 
-        sids = send_whatsapp_message(order_data)
+    # Assess package
+    if package_total < CONSTS.MINIMUM_ORDER_AMOUNT:
+        ret = ask_human(package_total)
+
+    if package_total >= CONSTS.MINIMUM_ORDER_AMOUNT or ret == CONSTS.ACCEPTED:
+        for order_data in package:
+            send_whatsapp_message(order_data)
+
+        # Print functions below
+        print_to_screen(package)
+        print_package()
+
+        # Get back to the orders page
+        back_home()
+
+    elif ret == CONSTS.REJECTED:
+        # TODO
+        pass
 
     return package, contact_dict
-
-
-def ask_about_next_trip():
-    # TODO: Make this a popup
-    while True:
-        # Ask the admin for the last time to include orders (in format "HH:MM")
-        last_order_time_str = input("Enter the last time to include orders (HH:MM):")
-
-        # Convert the input time string to a datetime object
-        last_order_time = datetime.strptime(last_order_time_str, "%H:%M").time()
-
-        # Ask the admin how many delivery persons are available
-        number_of_delivery_persons: int = int(input("Enter the number of available delivery persons: "))
-
-        # Update the trip data
-        trip_data["last_order_time"] = last_order_time
-        trip_data["number_of_delivery_persons"] = number_of_delivery_persons
-
-        # Sleep for some time before asking again (e.g., 10 minutes)
-        # TODO: Change this to the time the trip departs
-        waiting_time_until_next_ask = 60*300
-        print(f"Input has been accepted.\nWaiting {waiting_time_until_next_ask/60} minutes until next ask..")
-        time.sleep(waiting_time_until_next_ask)
 
 
 def main():
@@ -101,28 +106,13 @@ def main():
 
     print("Program started successfully!")
 
-    # Start the input thread
-    input_thread = threading.Thread(target=ask_about_next_trip, daemon=True)
-    input_thread.start()
-
-    upcoming_orders = []
-
     try:
         while True:
             # Process and manage the order data
-            package, contact_dict, customers_dict = manage_package(service, contact_dict, customers_dict)
+            package, contact_dict = manage_package(service, contact_dict)  # TODO: may need only "manage_package(service, contact_dict)"
 
-            for order_data in package:
-                # Add the order data to the upcoming_orders list
-                upcoming_orders.append(order_data)
-
-                # Check if the last order time has been reached or exceeded
-                if trip_data["last_order_time"] is not None and datetime.datetime.now().time() >= trip_data["last_order_time"]:
-                    manage_trip(trip_data["number_of_delivery_persons"], customers_dict, upcoming_orders)
-
-                    # TODO: sync this with the "wanted at" and the bool "asap" elements in the order
-                    # Reset the upcoming_orders list
-                    upcoming_orders = []
+            # Print stickers
+            # print_accepted_orders_stickers_and_push_status()
 
     except KeyboardInterrupt:
         print("Exiting the loop...")

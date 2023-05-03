@@ -30,10 +30,6 @@ def get_contacts(service):
 # Create a new contact
 def create_contact(name, number, service, contact_dict):
 
-    if number in contact_dict:
-        print(f"The contact '{name}' with the number {number} is already exist on your account.")
-        return
-
     person = {
         "names": [
             {
@@ -50,7 +46,7 @@ def create_contact(name, number, service, contact_dict):
     }
 
     result = service.people().createContact(body=person).execute()
-    print(f"Contact created. name: {name}, number: {number} | {result['resourceName']}")
+    print(f"Contact created:\t{name}\t{number}")
 
     # Update contact_dict
     contact_dict[number] = name
