@@ -1,6 +1,6 @@
 # Cibus Order Manager
 
-Cibus Order Manager is an automated system designed to manage food orders from the Cibus website. The system scrapes order data, processes it, and manages customer contacts using the Google People API.
+Cibus Order Manager is an automated system designed to manage food orders from the Cibus website. The system scrapes order data, processes it, and manages customer contacts using the Google People API. It also controls display function for the crew and printing functions for the site printers.
 
 ## Features
 
